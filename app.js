@@ -10,7 +10,7 @@ const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 
 const app = express();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8001;
 
 const Prismic = require("@prismicio/client");
 const PrismicH = require("@prismicio/helpers");
@@ -22,6 +22,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride());
 app.use(errorHandler());
+app.use(express.static(path.join(__dirname, "public")));
 
 // Initialize the prismic.io api
 const initApi = (req) => {
@@ -32,12 +33,13 @@ const initApi = (req) => {
   });
 };
 
-// Link Resolver
+// Link Resolver, set http address directions
 const HandleLinkResolver = (doc) => {
   if (doc.type === "product") {
     return `/detail/${doc.slug}`;
   }
-  if (doc.type === "collections") {
+  if (doc.type === "collection") {
+    //collections_names
     return "/collections";
   }
   if (doc.type === "about") {
@@ -81,11 +83,18 @@ const handleRequest = async (api) => {
       api.getSingle("navigation"),
       api.getSingle("home"),
       api.getSingle("about"),
-      api.query(Prismic.Predicates.at("document.type", "collections"), {
+      api.query(Prismic.Predicates.at("document.type", "collection"), {
         fetchLinks: "product.image",
       }),
     ]);
-  console.log(about);
+
+  // collections.forEach((collection) => {
+  //   console.log(collection);
+  //   collection.data.products.forEach((item) => {
+  //     console.log(item);
+  //   });
+  // });
+  console.log(navigation.data.list);
 
   // const assets = [];
 
@@ -163,6 +172,8 @@ app.get("/detail/:uid", async (req, res) => {
     ...defaults,
     product,
   });
+
+  //console.log(product, product.data.highlights[0]);
 });
 
 // Listen to application port.

@@ -1,3 +1,23 @@
-import image from "images/img/1.png";
+import About from "pages/About";
+import Collections from "pages/Collections";
+import Detail from "pages/Detail";
+import Home from "pages/Home";
 
-console.log(image);
+class App {
+  constructor() {
+    this.createPages();
+  }
+
+  createPages() {
+    this.pages = {
+      about: new About(),
+      collections: new Collections(),
+      detail: new Detail(),
+      home: new Home(),
+    };
+
+    console.log(this.pages);
+  }
+}
+
+new App();

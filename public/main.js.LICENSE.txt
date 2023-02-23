@@ -1,7 +1,5 @@
 /*! ../modules/logger/index.js */
 
-/*! ../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */
-
 /*! ../utils/log.js */
 
 /*! ./Logger */
@@ -21,6 +19,8 @@
 /*! ./log.js */
 
 /*! ./named-references */
+
+/*! ./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */
 
 /*! ./node_modules/webpack-dev-server/client/clients/WebSocketClient.js */
 
@@ -52,7 +52,13 @@
 
 /*! html-entities */
 
-/*! images/img/1.png */
+/*! pages/About */
+
+/*! pages/Collections */
+
+/*! pages/Detail */
+
+/*! pages/Home */
 
 /*! tapable/lib/SyncBailHook */
 
@@ -70,13 +76,25 @@
   !*** ./styles/index.scss ***!
   \***************************/
 
-/*!******************************!*\
-  !*** ./app/images/img/1.png ***!
-  \******************************/
+/*!*********************************!*\
+  !*** ./app/pages/Home/index.js ***!
+  \*********************************/
+
+/*!**********************************!*\
+  !*** ./app/pages/About/index.js ***!
+  \**********************************/
+
+/*!***********************************!*\
+  !*** ./app/pages/Detail/index.js ***!
+  \***********************************/
 
 /*!***************************************!*\
   !*** ./node_modules/events/events.js ***!
   \***************************************/
+
+/*!****************************************!*\
+  !*** ./app/pages/Collections/index.js ***!
+  \****************************************/
 
 /*!*****************************************!*\
   !*** ./node_modules/webpack/hot/log.js ***!

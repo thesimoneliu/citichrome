@@ -7,9 +7,9 @@ html(lang="en")
         meta(name="viewport" content="width=device-width,initial-scale=1.0")
         base(href='/')
 
-        title = meta.data.title
+        title=meta.data.title
 
-        meta(name="description" content = meta.data.description)
+        meta(name="description" content=meta.data.description)
 
         // fav icon svg
         link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
@@ -19,6 +19,12 @@ html(lang="en")
         link(rel="mask-icon" href="/safari-pinned-tab.svg" color="#fbf7ec")
         meta(name="msapplication-TileColor" content="#fbf7ec")
         meta(name="theme-color" content="#fbf7ec")
+        
+        link(rel="preconnect" href="https://fonts.googleapis.com")
+        link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+        link(href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css2?family=Aboreto&display=swap" rel="stylesheet")
+        link(href="main.css" rel="stylesheet")
 
         //facebook
         meta(property="og:type" content="website")
@@ -31,15 +37,12 @@ html(lang="en")
         meta(name="twitter:description" content=meta.data.description)
         meta(name="twitter:image" content=meta.data.image ? meta.data.image.url : '')
 
-        link(href="main.css" rel="stylesheet")
-
     body
         include ./partials/preloader
         include ./partials/navigation
 
         .content#content(data-template=template)
             block content
-        
-        p.localtest Hi can you see me?
+    
 
 

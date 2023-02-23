@@ -10,23 +10,14 @@ const TerserPlugin = require("terser-webpack-plugin");
 const IS_DEVELOPMENT = process.env.NODE_ENV === "dev";
 
 const dirApp = path.join(__dirname, "app");
-// const dirImages = path.join(__dirname, 'images');
 const dirShared = path.join(__dirname, "shared");
 const dirStyles = path.join(__dirname, "styles");
-// const dirVideos = path.join(__dirname, 'videos');
 const dirNode = "node_modules";
 
 module.exports = {
   entry: [path.join(dirApp, "index.js"), path.join(dirStyles, "index.scss")],
   resolve: {
-    modules: [
-      dirApp,
-      // dirImages,
-      dirShared,
-      dirStyles,
-      // dirVideos,
-      dirNode,
-    ],
+    modules: [dirApp, dirShared, dirStyles, dirNode],
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -80,6 +71,9 @@ module.exports = {
             loader: "css-loader",
           },
           {
+            loader: "resolve-url-loader",
+          },
+          {
             loader: "postcss-loader",
           },
           {
@@ -88,14 +82,21 @@ module.exports = {
         ],
       },
       {
-        test: /\.(jpe?g|png|gif|svg|woff2?|webp|fnt)$/,
+        test: /\.(jpe?g|png|gif|svg|woff2?|fnt|webp)$/,
         loader: "file-loader",
         options: {
           name(file) {
-            return "[name].[ext]";
+            return "[hash].[ext]";
           },
         },
       },
+      // {
+      //   test: /\.(png|jpg|gif|jpe?g|svg|woff2?|fnt|webp|mp4)$/,
+      //   loader: "asset/resource",
+      //   generator: {
+      //     filename: "[name].[hash].[ext]",
+      //   },
+      // },
       // {
       //   test: /\.(jpe?g|png|gif|svg|woff2?)$/i,
       //   use: [
