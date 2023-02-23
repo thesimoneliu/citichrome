@@ -1,6 +1,3 @@
-# tblazer
-
-
 # To Get Started
 
 1. download and open it in your code editor
