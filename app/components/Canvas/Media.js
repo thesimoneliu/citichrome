@@ -1,5 +1,7 @@
 import { Mesh, Program, Texture } from "ogl";
 
+import GSAP from "gsap";
+
 import vertex from "shaders/plane-vertex.glsl";
 import fragment from "shaders/plane-fragment.glsl";
 
@@ -55,6 +57,8 @@ export default class Media {
       program: this.program,
     });
     this.mesh.setParent(this.scene);
+
+    this.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.02, Math.PI * 0.02);
   }
 
   createBound({ sizes }) {
@@ -70,8 +74,14 @@ export default class Media {
    ------------ EVENTS
    -------------- */
 
-  onResize(sizes) {
+  onResize(sizes, scroll) {
+    this.extra = {
+      x: 0,
+      y: 0,
+    };
     this.createBound(sizes);
+    this.updateX(scroll ? scroll.x : 0);
+    this.updateY(scroll ? scroll.y : 0);
   }
 
   /* -------------

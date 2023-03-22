@@ -1,5 +1,4 @@
 // import libraries
-import NormalizeWheel from "normalize-wheel";
 import GSAP from "gsap";
 import Prefix from "prefix";
 import each from "lodash/each";
@@ -195,8 +194,7 @@ export default class Page {
     each(this.animations, (animation) => animation.onResize());
   }
 
-  onMouseWheel(event) {
-    const { pixelY } = NormalizeWheel(event);
+  onWheel({ pixelY }) {
     this.scroll.target += pixelY;
   }
 
@@ -204,13 +202,9 @@ export default class Page {
   ------------ LISTENERS
   -------------- */
 
-  addEventListeners() {
-    window.addEventListener("mousewheel", this.onMouseWheel);
-  }
+  addEventListeners() {}
 
-  removeEventListeners() {
-    window.removeEventListener("mousewheel", this.onMouseWheel);
-  }
+  removeEventListeners() {}
 
   /* -------------
   ------------ LOOPS AND FRAMES

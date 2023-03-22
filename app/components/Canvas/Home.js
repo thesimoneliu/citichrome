@@ -64,7 +64,6 @@ export default class Home {
    -------------- */
 
   onResize(event) {
-    map(this.medias, (media) => media.onResize(event));
     this.sizes = event.sizes;
 
     this.galleryBounds = this.galleryElement.getBoundingClientRect(); // create gallery bounds
@@ -73,6 +72,11 @@ export default class Home {
       height:
         (this.galleryBounds.height / window.innerHeight) * this.sizes.height,
     };
+
+    this.scroll.x = this.x.target = 0;
+    this.scroll.y = this.y.target = 0;
+
+    map(this.medias, (media) => media.onResize(event, this.scroll));
   }
 
   onTouchDown({ x, y }) {
@@ -90,10 +94,17 @@ export default class Home {
 
   onTouchUp({ x, y }) {}
 
+  onWheel({ pixelX, pixelY }) {
+    this.x.target += pixelX;
+    this.y.target += pixelY;
+  }
+
   /* -------------
    ------------ LOOPS & FRAMES
    -------------- */
   update() {
+    if (!this.galleryBounds) return;
+
     this.x.current = GSAP.utils.interpolate(
       this.x.current,
       this.x.target,
@@ -129,23 +140,40 @@ export default class Home {
         const x = media.mesh.position.x + scaleX; //check the right edge of the image
         if (x < -this.sizes.width / 2) {
           media.extra.x += this.gallerySizes.width; // move to the right side
+          media.mesh.rotation.z = GSAP.utils.random(
+            -Math.PI * 0.02,
+            Math.PI * 0.02
+          );
         }
       } else if (this.x.direction === "right") {
         const x = media.mesh.position.x - scaleX; //check the left edge of the image
         if (x > this.sizes.width / 2) {
           media.extra.x -= this.gallerySizes.width; // move to the left side
+          media.mesh.rotation.z = GSAP.utils.random(
+            -Math.PI * 0.02,
+            Math.PI * 0.02
+          );
         }
       }
+
       // vertical scroll
       if (this.y.direction === "up") {
         const y = media.mesh.position.y + scaleY / 2; //check the bottom edge of the image
         if (y < -this.sizes.height / 2) {
           media.extra.y += this.gallerySizes.height;
+          media.mesh.rotation.z = GSAP.utils.random(
+            -Math.PI * 0.02,
+            Math.PI * 0.02
+          );
         }
       } else if (this.y.direction === "down") {
         const y = media.mesh.position.y - scaleY / 2; //check the top edge of the image
         if (y > this.sizes.height / 2) {
           media.extra.y -= this.gallerySizes.height;
+          media.mesh.rotation.z = GSAP.utils.random(
+            -Math.PI * 0.02,
+            Math.PI * 0.02
+          );
         }
       }
 

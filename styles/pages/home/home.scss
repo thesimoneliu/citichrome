@@ -66,7 +66,7 @@
 .home__gallery {
   @extend %cover;
   position: relative;
-  width: 241.8rem;
+  width: 241.8rem + 9rem;
   height:172.5rem;
   visibility: hidden;
 
@@ -82,7 +82,7 @@
     width: 27.8rem;
     height: 41.8rem;
     top: 16.6rem;
-    left: 9.4rem;
+    left: 9.4rem ;
   }
   &:nth-child(2) {
     width: 27.8rem;

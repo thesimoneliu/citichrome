@@ -105,17 +105,26 @@ class App {
   }
 
   onResize() {
-    if (this.canvas && this.canvas.onResize) {
-      this.canvas.onResize();
-    }
     if (this.page && this.page.onResize) {
       this.page.onResize();
     }
+
+    window.requestAnimationFrame((_) => {
+      if (this.canvas && this.canvas.onResize) {
+        this.canvas.onResize();
+      }
+    });
   }
 
-  onMouseWheel(event) {
-    if (this.page && this.page.onMouseWheel) {
-      this.page.onMouseWheel(event);
+  onWheel(event) {
+    // entry point
+    const normalizeWheel = NormalizeWheel(event); // smooth scroll
+
+    if (this.canvas && this.canvas.onWheel) {
+      this.canvas.onWheel(normalizeWheel);
+    }
+    if (this.page && this.page.onWheel) {
+      this.page.onWheel(normalizeWheel);
     }
   }
 
@@ -153,7 +162,7 @@ class App {
   addEventListeners() {
     window.addEventListener("popstate", this.onPopState.bind(this));
 
-    window.addEventListener("mousewheel", this.onMouseWheel.bind(this));
+    window.addEventListener("mousewheel", this.onWheel.bind(this));
 
     window.addEventListener("mousedown", this.onTouchDown.bind(this));
     window.addEventListener("mousemove", this.onTouchMove.bind(this));
