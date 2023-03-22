@@ -16,9 +16,11 @@ export default class Media {
     this.createTexture();
     this.createProgram();
     this.createMesh();
-    this.createBound({
-      sizes: this.sizes,
-    });
+
+    this.extra = {
+      x: 0,
+      y: 0,
+    };
   }
 
   createTexture() {
@@ -31,6 +33,8 @@ export default class Media {
     this.image.crossOrigin = "anonymous";
     this.image.src = this.element.getAttribute("data-src");
     this.image.onload = () => (this.texture.image = this.image);
+
+    console.log(this.texture);
   }
 
   createProgram() {
@@ -86,7 +90,10 @@ export default class Media {
   updateX(x = 0) {
     this.x = (x + this.bounds.left) / window.innerWidth; // x position in rem percentage
     this.mesh.position.x =
-      -this.sizes.width / 2 + this.mesh.scale.x / 2 + this.x * this.sizes.width;
+      -this.sizes.width / 2 +
+      this.mesh.scale.x / 2 +
+      this.x * this.sizes.width +
+      this.extra.x;
   }
 
   updateY(y = 0) {
@@ -94,7 +101,8 @@ export default class Media {
     this.mesh.position.y =
       this.sizes.height / 2 -
       this.mesh.scale.y / 2 -
-      this.y * this.sizes.height;
+      this.y * this.sizes.height +
+      this.extra.y;
   }
 
   update(scroll) {

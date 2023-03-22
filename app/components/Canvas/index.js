@@ -24,11 +24,11 @@ export default class Canvas {
 
   createRenderer() {
     this.renderer = new Renderer({
-      //alpha: true,
-      //antialias: true,
+      // alpha: true,
     });
 
     this.gl = this.renderer.gl;
+    this.gl.clearColor(0.78, 0.44, 0.39, 1);
 
     document.body.appendChild(this.gl.canvas);
   }

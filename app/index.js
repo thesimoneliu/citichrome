@@ -62,7 +62,7 @@ class App {
     this.page.create();
     //console.log(this.page);
     // this.page.show();
-    //this.page.hide();
+    // this.page.hide();
   }
 
   /* -------------
