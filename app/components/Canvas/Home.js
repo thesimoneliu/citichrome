@@ -95,6 +95,12 @@ export default class Home {
       this.y.ease
     );
 
+    if (this.scroll.x < this.x.current) {
+      console.log("right");
+    } else {
+      console.log("left");
+    }
+
     this.scroll.x = this.x.current;
     this.scroll.y = this.y.current;
 
