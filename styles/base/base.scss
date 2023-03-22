@@ -7,11 +7,18 @@
 
 html {
   @extend %cover;
+  position: fixed;
+  overflow: hidden;
 
   background-color: $color-contessa;
   color: $color-quarter-spanish-white;
   font-size: calc(100vw / 1920 * 10);
   line-height: 1;
+
+  @include media('<phone'){
+    font-size: calc(100vw / 750 * 10);
+  }
+
 }
 
 body {
@@ -19,6 +26,7 @@ body {
   @extend %description-18;
 
   font-family: $font-suisse-bp, Ubuntu;
+  position: fixed;
 }
 
 a {
@@ -37,11 +45,39 @@ button {
 
 
 img {
-  opacity: 0.3;
+  opacity: 1;
   transition: opacity 0.4s ease;
   vertical-align: middle;
 
   &.loaded {
     opacity: 1;
+  }
+}
+
+.content{
+  @extend %cover;
+}
+
+[data-animation="title"]{
+  span{
+    display: inline-block;
+    overflow:hidden;
+    vertical-align: top;
+  }
+}
+
+[data-animation="paragraph"]{
+  span{
+    display: inline-block;
+    overflow:hidden;
+    vertical-align: top;
+  }
+}
+
+[data-animation="label"]{
+  span{
+    display: inline-block;
+    overflow:hidden;
+    vertical-align: top;
   }
 }

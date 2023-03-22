@@ -1,9 +1,9 @@
 
 .collections {
-  @extend %cover;
+  @extend %page;
 
-  background-color: $color-quicksand;
-  color: $color-quarter-spanish-white;
+  // background-color: $color-quicksand;
+  // color: $color-quarter-spanish-white;
 }
 
 .collections__wrapper {
@@ -81,3 +81,27 @@
   max-width: 44rem;
 }
 
+.collections__mobile{
+  bottom: 5rem;
+  display:none;
+  position:absolute;
+  @include media('<phone'){
+    display: flex;
+  }
+}
+
+.collections__mobile__item{
+  padding-left: 5rem;
+  width: 100vw;
+}
+
+.collections__mobile__item__label{
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+.collections__mobile__item__title{
+  font-family: $font-george-x;
+  font-size: 12rem;
+}

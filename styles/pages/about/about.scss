@@ -1,6 +1,8 @@
 .about {
-  background-color: $color-cadet-blue;
-  color: $color-bright-gray;
+  @extend %page;
+
+  // background-color: $color-cadet-blue;
+  // color: $color-bright-gray;
 }
 
 .about__wrapper {
@@ -8,9 +10,17 @@
 }
 
 .about__title {
-  @extend %title-80;
-  
+  @extend %title-100;
   margin: auto;
   text-align: center;
   max-width: 140rem;
+  // line-height: 0;
+
+  // span span {
+  //   line-height: 1;
+  // }
+
+  @include media('<phone'){
+    max-width: 67.7rem;
+  }
 }

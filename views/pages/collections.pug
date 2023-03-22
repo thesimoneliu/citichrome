@@ -4,7 +4,7 @@ block variables
   - var template = 'collections'
 
 block content 
-  .collections 
+  .collections(data-background="#BC978C" data-color="#F9F1E7")
     .collections__wrapper 
       .collections__titles 
         each collection, index in collections
@@ -17,7 +17,7 @@ block content
             each product in collection.data.products
               a.collections__gallery__link
                 figure.collections__gallery__media 
-                  img.collections__gallery__media__image(alt=product.products_product.data.image.alt src=product.products_product.data.image.url)
+                  img.collections__gallery__media__image(alt=product.products_product.data.image.alt data-src=product.products_product.data.image.url)
 
       .collections__content 
         each collection, index in collections

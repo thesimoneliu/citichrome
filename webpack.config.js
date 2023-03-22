@@ -82,21 +82,16 @@ module.exports = {
         ],
       },
       {
-        test: /\.(jpe?g|png|gif|svg|woff2?|fnt|webp)$/,
-        loader: "file-loader",
-        options: {
-          name(file) {
-            return "[hash].[ext]";
-          },
+        test: /\.(ico|png|jpg|jpeg|gif|svg|webp|tiff)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "images/[name].[hash][ext]",
         },
       },
-      // {
-      //   test: /\.(png|jpg|gif|jpe?g|svg|woff2?|fnt|webp|mp4)$/,
-      //   loader: "asset/resource",
-      //   generator: {
-      //     filename: "[name].[hash].[ext]",
-      //   },
-      // },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/inline",
+      },
       // {
       //   test: /\.(jpe?g|png|gif|svg|woff2?)$/i,
       //   use: [

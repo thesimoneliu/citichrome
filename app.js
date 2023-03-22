@@ -10,7 +10,7 @@ const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 
 const app = express();
-const port = process.env.PORT || 8001;
+const port = process.env.PORT || 8003;
 
 const Prismic = require("@prismicio/client");
 const PrismicH = require("@prismicio/helpers");
@@ -38,7 +38,7 @@ const HandleLinkResolver = (doc) => {
   if (doc.type === "product") {
     return `/detail/${doc.slug}`;
   }
-  if (doc.type === "collection") {
+  if (doc.type === "collection" || doc === "collection") {
     //collections_names
     return "/collections";
   }
@@ -51,10 +51,13 @@ const HandleLinkResolver = (doc) => {
 
 // Middleware to inject prismic context
 app.use((req, res, next) => {
-  // const ua = UAParser(req.headers['user-agent']);
-  // res.locals.isDesktop = ua.device.type === undefined;
-  // res.locals.isPhone = ua.device.type === 'mobile';
-  // res.locals.isTablet = ua.device.type === 'tablet';
+  // mobile end
+  const ua = UAParser(req.headers["user-agent"]);
+  res.locals.isDesktop = ua.device.type === undefined;
+  res.locals.isPhone = ua.device.type === "mobile";
+  res.locals.isTablet = ua.device.type === "tablet";
+
+  // body class
   res.locals.Link = HandleLinkResolver;
   res.locals.PrismicH = PrismicH;
   res.locals.Numbers = (index) => {
@@ -68,6 +71,8 @@ app.use((req, res, next) => {
       ? "Four"
       : "";
   };
+
+  //console.log(res.locals.Link);
 
   next();
 });
@@ -88,13 +93,14 @@ const handleRequest = async (api) => {
       }),
     ]);
 
+  // console.log(home.data.collection, Link(home.data.collection));
+
   // collections.forEach((collection) => {
   //   console.log(collection);
   //   collection.data.products.forEach((item) => {
   //     console.log(item);
   //   });
   // });
-  console.log(navigation.data.list);
 
   // const assets = [];
 

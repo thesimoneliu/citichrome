@@ -12,6 +12,7 @@
   height: 2rem;
   left: 4rem;
   pointer-events: auto;
+  padding-bottom: 0.2rem;
   position: absolute;
   top: 4rem;
   transition: opacity 0.4s ease;
@@ -45,8 +46,8 @@
 }
 
 .navigation__list__link {
-  @extend %link--hidden;
   @extend %title-24;
+  @extend %link--hidden;
 
   display: block;
 }
