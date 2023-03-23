@@ -2,8 +2,8 @@ import { Mesh, Program, Texture } from "ogl";
 
 import GSAP from "gsap";
 
-import vertex from "shaders/plane-vertex.glsl";
-import fragment from "shaders/plane-fragment.glsl";
+import vertex from "../../../shaders/plane-vertex.glsl";
+import fragment from "../../../shaders/plane-fragment.glsl";
 
 export default class Media {
   constructor({ element, geometry, gl, index, scene, sizes }) {
@@ -29,11 +29,13 @@ export default class Media {
     // Upload empty texture while source loading
     this.texture = new Texture(this.gl);
 
-    // console.log(this.element);
+    const image = this.element.querySelector(
+      ".collections__gallery__media__image"
+    );
     // update image value with source once loaded
     this.image = new window.Image();
     this.image.crossOrigin = "anonymous";
-    this.image.src = this.element.getAttribute("data-src");
+    this.image.src = image.getAttribute("data-src");
     this.image.onload = () => (this.texture.image = this.image);
     // console.log(this.texture);
   }
@@ -57,8 +59,6 @@ export default class Media {
       program: this.program,
     });
     this.mesh.setParent(this.scene);
-
-    this.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.02, Math.PI * 0.02);
   }
 
   createBound({ sizes }) {
@@ -87,12 +87,14 @@ export default class Media {
         value: 0.4,
       }
     );
+    console.log("show animation home page");
   }
 
   hide() {
     GSAP.to(this.program.uniforms.uAlpha, {
       value: 0,
     });
+    console.log("hide animation home page");
   }
 
   /* -------------
@@ -143,7 +145,7 @@ export default class Media {
   update(scroll) {
     // position change based on scroll event
     if (!this.bounds) return;
-    this.updateX(scroll.x);
-    this.updateY(scroll.y);
+    this.updateX(scroll);
+    this.updateY(0);
   }
 }

@@ -2,6 +2,7 @@ import { Renderer, Camera, Transform, Box, Program, Mesh } from "ogl";
 
 import Home from "./Home/index";
 import About from "./About/index";
+import Collections from "./Collections/index";
 
 export default class Canvas {
   constructor({ template }) {
@@ -80,6 +81,21 @@ export default class Canvas {
     this.about = null;
   }
 
+  createCollections() {
+    this.collections = new Collections({
+      gl: this.gl,
+      scene: this.scene,
+      sizes: this.sizes,
+    });
+    // console.log(this.collections);
+  }
+
+  destroyCollections() {
+    if (!this.collections) return;
+    this.collections.destroy();
+    this.collections = null;
+  }
+
   /* -------------
    ------------ EVENTS
    -------------- */
@@ -87,6 +103,9 @@ export default class Canvas {
   onChangeInit() {
     if (this.about) {
       this.about.hide();
+    }
+    if (this.collections) {
+      this.collections.hide();
     }
     if (this.home) {
       this.home.hide();
@@ -96,8 +115,14 @@ export default class Canvas {
   onChange(template) {
     if (template === "about") {
       this.createAbout();
-    } else {
+    } else if (this.about) {
       this.destroyAbout();
+    }
+
+    if (template === "collections") {
+      this.createCollections();
+    } else if (this.collections) {
+      this.destroyCollections();
     }
 
     if (template === "home") {
@@ -134,6 +159,9 @@ export default class Canvas {
     if (this.about) {
       this.about.onResize(values);
     }
+    if (this.collections) {
+      this.collections.onResize(values);
+    }
   }
 
   onTouchDown(event) {
@@ -154,6 +182,9 @@ export default class Canvas {
     }
     if (this.about) {
       this.about.onTouchDown(values);
+    }
+    if (this.collections) {
+      this.collections.onTouchDown(values);
     }
   }
 
@@ -177,6 +208,9 @@ export default class Canvas {
     }
     if (this.about) {
       this.about.onTouchMove(values);
+    }
+    if (this.collections) {
+      this.collections.onTouchMove(values);
     }
   }
 
@@ -205,11 +239,17 @@ export default class Canvas {
     if (this.about) {
       this.about.onTouchUp(values);
     }
+    if (this.collections) {
+      this.collections.onTouchUp(values);
+    }
   }
 
   onWheel(event) {
     if (this.home) {
       this.home.onWheel(event);
+    }
+    if (this.collections) {
+      this.collections.onWheel(values);
     }
   }
 
@@ -222,7 +262,10 @@ export default class Canvas {
       this.home.update();
     }
     if (this.about) {
-      this.about.update(scroll);
+      this.about.update(scroll); // sync page vertical scroll
+    }
+    if (this.collections) {
+      this.collections.update();
     }
     this.renderer.render({
       scene: this.scene,

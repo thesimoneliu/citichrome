@@ -33,13 +33,23 @@
   align-items: center;
   display: flex;
   position: absolute;
+  left: 50%; // center the gallery
   top: 50%;
-  transform: translateY(-50%);
+  transform: translate(-44.7rem * 0.5, -50%); // center the gallery
+  visibility: hidden;
 }
 
 .collections__gallery__link{
   display: block;
   margin: 0 5.3rem;
+
+  // center the gallery
+  &:first-child{
+    margin-left: 0;
+  }
+  &:last-child{
+    margin-left: 0;
+  }
 }
 
 .collections__gallery__media {
@@ -65,9 +75,11 @@
   bottom: 8rem;
   left: 8rem;
   opacity: 0;
+  transition: opacity 0.4s 0.4s ease;
 
   &--active{
     opacity: 1;
+    transition: opacity 0.4s 0.4s ease
   }
 }
 
