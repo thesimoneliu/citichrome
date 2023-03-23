@@ -7,18 +7,15 @@ import Media from "./Media";
 export default class Home {
   constructor({ gl, scene, sizes }) {
     this.gl = gl;
+    this.scene = scene;
     this.sizes = sizes;
+
     this.group = new Transform();
 
     this.galleryElement = document.querySelector(".home__gallery");
     this.mediaElements = document.querySelectorAll(
       ".home__gallery__media__image"
     );
-
-    this.createGeometry();
-    this.createGallery();
-
-    this.group.setParent(scene);
 
     this.x = {
       current: 0,
@@ -40,6 +37,13 @@ export default class Home {
       x: 0,
       y: 0,
     };
+
+    // create WebGL elements
+    this.createGeometry();
+    this.createGallery();
+    this.group.setParent(scene);
+
+    this.show();
   }
 
   createGeometry() {
@@ -57,6 +61,19 @@ export default class Home {
         sizes: this.sizes,
       });
     });
+  }
+
+  /* -------------
+   ------------ ANIMATIONS
+   -------------- */
+
+  // images fade in and out effect
+  show() {
+    map(this.medias, (media) => media.show());
+  }
+
+  hide() {
+    map(this.medias, (media) => media.hide());
   }
 
   /* -------------
@@ -180,5 +197,13 @@ export default class Home {
       // update scroll position
       media.update(this.scroll);
     });
+  }
+
+  /* -------------
+   ------------ DESTROY
+   -------------- */
+
+  destroy() {
+    this.scene.removeChild(this.group);
   }
 }

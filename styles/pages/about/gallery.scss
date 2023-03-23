@@ -2,9 +2,11 @@
   position: relative;
   height: 58.6rem;
   margin: 15rem 0;
+  pointer-events: none;
 
   &:first-child {
     margin-top: 0;
+    visibility: hidden;
   }
 
   &:last-child {
@@ -25,6 +27,8 @@
   margin: 0 4rem;
   height: 43.7rem;
   width: 30.9rem;
+
+  
 }
 
 .about__gallery__image{

@@ -1,9 +1,12 @@
 import { Renderer, Camera, Transform, Box, Program, Mesh } from "ogl";
 
-import Home from "./Home";
+import Home from "./Home/index";
+import About from "./About/index";
 
 export default class Canvas {
-  constructor() {
+  constructor({ template }) {
+    this.template = template;
+
     this.x = {
       start: 0,
       end: 0,
@@ -19,7 +22,7 @@ export default class Canvas {
     this.createScene();
 
     this.onResize();
-    this.createHome();
+    this.onChange(this.template);
   }
 
   createRenderer() {
@@ -29,7 +32,7 @@ export default class Canvas {
     });
 
     this.gl = this.renderer.gl;
-    this.gl.clearColor(0.78, 0.44, 0.39, 1);
+    // this.gl.clearColor(0.78, 0.44, 0.39, 1);
 
     document.body.appendChild(this.gl.canvas);
   }
@@ -43,17 +46,66 @@ export default class Canvas {
     this.scene = new Transform();
   }
 
+  /* -------------
+   ------------ INITIALIZE
+   -------------- */
+
   createHome() {
     this.home = new Home({
       gl: this.gl,
       scene: this.scene,
       sizes: this.sizes,
     });
+    // console.log(this.home);
+  }
+
+  destroyHome() {
+    if (!this.home) return;
+    this.home.destroy();
+    this.home = null;
+  }
+
+  createAbout() {
+    this.about = new About({
+      gl: this.gl,
+      scene: this.scene,
+      sizes: this.sizes,
+    });
+    // console.log(this.about);
+  }
+
+  destroyAbout() {
+    if (!this.about) return;
+    this.about.destroy();
+    this.about = null;
   }
 
   /* -------------
    ------------ EVENTS
    -------------- */
+
+  onChangeInit() {
+    if (this.about) {
+      this.about.hide();
+    }
+    if (this.home) {
+      this.home.hide();
+    }
+  }
+
+  onChange(template) {
+    if (template === "about") {
+      this.createAbout();
+    } else {
+      this.destroyAbout();
+    }
+
+    if (template === "home") {
+      this.createHome();
+    } else {
+      this.destroyHome();
+    }
+  }
 
   onResize() {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -72,10 +124,15 @@ export default class Canvas {
       height,
     };
 
+    const values = {
+      sizes: this.sizes,
+    };
+
     if (this.home) {
-      this.home.onResize({
-        sizes: this.sizes,
-      });
+      this.home.onResize(values);
+    }
+    if (this.about) {
+      this.about.onResize(values);
     }
   }
 
@@ -87,11 +144,16 @@ export default class Canvas {
     this.x.start = x;
     this.y.start = y;
 
+    const values = {
+      x: this.x,
+      y: this.y,
+    };
+
     if (this.home) {
-      this.home.onTouchDown({
-        x: this.x,
-        y: this.y,
-      });
+      this.home.onTouchDown(values);
+    }
+    if (this.about) {
+      this.about.onTouchDown(values);
     }
   }
 
@@ -105,11 +167,16 @@ export default class Canvas {
     this.x.duration = this.x.start - this.x.end;
     this.y.duration = this.y.start - this.y.end;
 
+    const values = {
+      x: this.x,
+      y: this.y,
+    };
+
     if (this.home) {
-      this.home.onTouchMove({
-        x: this.x,
-        y: this.y,
-      });
+      this.home.onTouchMove(values);
+    }
+    if (this.about) {
+      this.about.onTouchMove(values);
     }
   }
 
@@ -127,11 +194,16 @@ export default class Canvas {
     this.x.duration = this.x.start - this.x.end;
     this.y.duration = this.y.start - this.y.end;
 
+    const values = {
+      x: this.x,
+      y: this.y,
+    };
+
     if (this.home) {
-      this.home.onTouchUp({
-        x: this.x,
-        y: this.y,
-      });
+      this.home.onTouchUp(values);
+    }
+    if (this.about) {
+      this.about.onTouchUp(values);
     }
   }
 
@@ -145,9 +217,12 @@ export default class Canvas {
    ------------ LOOP & FRAMES
    -------------- */
 
-  update() {
+  update(scroll) {
     if (this.home) {
       this.home.update();
+    }
+    if (this.about) {
+      this.about.update(scroll);
     }
     this.renderer.render({
       scene: this.scene,

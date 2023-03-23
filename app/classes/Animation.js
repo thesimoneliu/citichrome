@@ -16,10 +16,10 @@ export default class Animation extends Component {
       // Each entry describes an intersection change for one observed target element:
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log("animating");
+          // console.log("animating");
           this.animateIn();
         } else {
-          console.log("animating out");
+          // console.log("animating out");
           this.animateOut();
         }
       });
