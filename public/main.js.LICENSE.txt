@@ -18,6 +18,10 @@
  * @author: Jack Doyle, jack@greensock.com
 */
 
+/*! ../../../shaders/home-fragment.glsl */
+
+/*! ../../../shaders/home-vertex.glsl */
+
 /*! ../../../shaders/plane-fragment.glsl */
 
 /*! ../../../shaders/plane-vertex.glsl */
@@ -422,10 +426,6 @@
 
 /*! prefix */
 
-/*! shaders/plane-fragment.glsl */
-
-/*! shaders/plane-vertex.glsl */
-
 /*! tapable/lib/SyncBailHook */
 
 /*! utils/text */
@@ -549,6 +549,10 @@
   \**************************************/
 
 /*!**************************************!*\
+  !*** ./app/shaders/home-vertex.glsl ***!
+  \**************************************/
+
+/*!**************************************!*\
   !*** ./node_modules/lodash/_Hash.js ***!
   \**************************************/
 
@@ -590,6 +594,10 @@
 
 /*!****************************************!*\
   !*** ./app/pages/Collections/index.js ***!
+  \****************************************/
+
+/*!****************************************!*\
+  !*** ./app/shaders/home-fragment.glsl ***!
   \****************************************/
 
 /*!****************************************!*\

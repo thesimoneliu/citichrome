@@ -74,7 +74,7 @@ export default class Media {
       {
         duration: 2,
         ease: 'expo.inOut',
-        value: 0.4,
+        value: 1,
       }
     )
     console.log('show animation home page')

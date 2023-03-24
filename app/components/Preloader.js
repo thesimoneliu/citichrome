@@ -37,6 +37,12 @@ export default class Preloader extends Component {
   }
 
   createLoader() {
+    this.animateIn = GSAP.timeline()
+
+    this.animateIn.set(this.elements.title, {
+      autoAlpha: 1,
+    })
+
     // preload all images from asset
     window.ASSETS.forEach((image) => {
       // create texture in the canvas
@@ -74,7 +80,7 @@ export default class Preloader extends Component {
       this.emit('completed')
 
       this.animationOut = GSAP.timeline({
-        delay: 2,
+        delay: 1,
       })
 
       this.animationOut.to(this.elements.titleSpans, {
