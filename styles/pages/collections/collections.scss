@@ -2,6 +2,7 @@
 .collections {
   @extend %page;
 
+  z-index:0
   // background-color: $color-quicksand;
   // color: $color-quarter-spanish-white;
 }
@@ -14,6 +15,7 @@
 
 .collections__titles {
   @extend %vertical-titles;
+  transition: transform 1s ease; // smooth animation
 }
 
 .collections__titles__label{
@@ -23,10 +25,12 @@
 
 .collections__titles__title{
   @extend %vertical-titles__title;
+  
 }
 
 .collections__gallery {
  @extend %cover;
+ z-index: 1;
 }
 
 .collections__gallery__wrapper {
@@ -36,7 +40,7 @@
   left: 50%; // center the gallery
   top: 50%;
   transform: translate(-44.7rem * 0.5, -50%); // center the gallery
-  visibility: hidden;
+  
 }
 
 .collections__gallery__link{
@@ -56,6 +60,7 @@
   width: 44.7rem;
   height: 63.1rem;
   position: relative;
+  visibility: hidden;
   
 }
 
@@ -75,11 +80,11 @@
   bottom: 8rem;
   left: 8rem;
   opacity: 0;
-  transition: opacity 0.4s 0.4s ease;
+  transition: opacity 0.4s 0.4s ease; // title text transition
 
   &--active{
     opacity: 1;
-    transition: opacity 0.4s 0.4s ease
+    transition: opacity 0.4s 0.4s ease // title text transition
   }
 }
 

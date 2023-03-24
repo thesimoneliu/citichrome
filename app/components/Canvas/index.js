@@ -1,50 +1,49 @@
-import { Renderer, Camera, Transform, Box, Program, Mesh } from "ogl";
+import { Renderer, Camera, Transform, Box, Program, Mesh } from 'ogl'
 
-import Home from "./Home/index";
-import About from "./About/index";
-import Collections from "./Collections/index";
+import Home from './Home/index'
+import About from './About/index'
+import Collections from './Collections/index'
 
 export default class Canvas {
   constructor({ template }) {
-    this.template = template;
+    this.template = template
 
     this.x = {
       start: 0,
       end: 0,
       distance: 0,
-    };
+    }
     this.y = {
       start: 0,
       end: 0,
       distance: 0,
-    };
-    this.createRenderer();
-    this.createCamera();
-    this.createScene();
+    }
+    this.createRenderer()
+    this.createCamera()
+    this.createScene()
 
-    this.onResize();
-    this.onChange(this.template);
+    this.onResize()
   }
 
   createRenderer() {
     this.renderer = new Renderer({
-      // alpha: true,
+      alpha: true,
       antialias: true,
-    });
+    })
 
-    this.gl = this.renderer.gl;
+    this.gl = this.renderer.gl
     // this.gl.clearColor(0.78, 0.44, 0.39, 1);
 
-    document.body.appendChild(this.gl.canvas);
+    document.body.appendChild(this.gl.canvas)
   }
 
   createCamera() {
-    this.camera = new Camera(this.gl);
-    this.camera.position.z = 5;
+    this.camera = new Camera(this.gl)
+    this.camera.position.z = 5
   }
 
   createScene() {
-    this.scene = new Transform();
+    this.scene = new Transform()
   }
 
   /* -------------
@@ -56,14 +55,14 @@ export default class Canvas {
       gl: this.gl,
       scene: this.scene,
       sizes: this.sizes,
-    });
+    })
     // console.log(this.home);
   }
 
   destroyHome() {
-    if (!this.home) return;
-    this.home.destroy();
-    this.home = null;
+    if (!this.home) return
+    this.home.destroy()
+    this.home = null
   }
 
   createAbout() {
@@ -71,14 +70,14 @@ export default class Canvas {
       gl: this.gl,
       scene: this.scene,
       sizes: this.sizes,
-    });
+    })
     // console.log(this.about);
   }
 
   destroyAbout() {
-    if (!this.about) return;
-    this.about.destroy();
-    this.about = null;
+    if (!this.about) return
+    this.about.destroy()
+    this.about = null
   }
 
   createCollections() {
@@ -86,170 +85,170 @@ export default class Canvas {
       gl: this.gl,
       scene: this.scene,
       sizes: this.sizes,
-    });
+    })
     // console.log(this.collections);
   }
 
   destroyCollections() {
-    if (!this.collections) return;
-    this.collections.destroy();
-    this.collections = null;
+    if (!this.collections) return
+    this.collections.destroy()
+    this.collections = null
   }
 
   /* -------------
    ------------ EVENTS
    -------------- */
 
+  onPreloaded() {
+    this.onChange(this.template)
+  }
+
   onChangeInit() {
     if (this.about) {
-      this.about.hide();
+      this.about.hide()
     }
     if (this.collections) {
-      this.collections.hide();
+      this.collections.hide()
     }
     if (this.home) {
-      this.home.hide();
+      this.home.hide()
     }
   }
 
   onChange(template) {
-    if (template === "about") {
-      this.createAbout();
+    if (template === 'about') {
+      this.createAbout()
     } else if (this.about) {
-      this.destroyAbout();
+      this.destroyAbout()
     }
 
-    if (template === "collections") {
-      this.createCollections();
+    if (template === 'collections') {
+      this.createCollections()
     } else if (this.collections) {
-      this.destroyCollections();
+      this.destroyCollections()
     }
 
-    if (template === "home") {
-      this.createHome();
+    if (template === 'home') {
+      this.createHome()
     } else {
-      this.destroyHome();
+      this.destroyHome()
     }
   }
 
   onResize() {
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.camera.perspective({
       aspect: this.gl.canvas.width / this.gl.canvas.height,
-    });
+    })
 
     // camera fov adjustment
-    const fov = this.camera.fov * (Math.PI / 180);
-    const height = 2 * Math.tan(fov / 2) * this.camera.position.z;
-    const width = height * this.camera.aspect;
+    const fov = this.camera.fov * (Math.PI / 180)
+    const height = 2 * Math.tan(fov / 2) * this.camera.position.z
+    const width = height * this.camera.aspect
 
     this.sizes = {
       // viewport width and height
       width,
       height,
-    };
+    }
 
     const values = {
       sizes: this.sizes,
-    };
+    }
 
     if (this.home) {
-      this.home.onResize(values);
+      this.home.onResize(values)
     }
     if (this.about) {
-      this.about.onResize(values);
+      this.about.onResize(values)
     }
     if (this.collections) {
-      this.collections.onResize(values);
+      this.collections.onResize(values)
     }
   }
 
   onTouchDown(event) {
-    this.isDown = true;
-    const x = event.touches ? event.touches[0].clientX : event.clientX;
-    const y = event.touches ? event.touches[0].clientY : event.clientY;
+    this.isDown = true
+    const x = event.touches ? event.touches[0].clientX : event.clientX
+    const y = event.touches ? event.touches[0].clientY : event.clientY
 
-    this.x.start = x;
-    this.y.start = y;
+    this.x.start = x
+    this.y.start = y
 
     const values = {
       x: this.x,
       y: this.y,
-    };
+    }
 
     if (this.home) {
-      this.home.onTouchDown(values);
+      this.home.onTouchDown(values)
     }
     if (this.about) {
-      this.about.onTouchDown(values);
+      this.about.onTouchDown(values)
     }
     if (this.collections) {
-      this.collections.onTouchDown(values);
+      this.collections.onTouchDown(values)
     }
   }
 
   onTouchMove(event) {
-    if (!this.isDown) return;
-    const x = event.touches ? event.touches[0].clientX : event.clientX;
-    const y = event.touches ? event.touches[0].clientY : event.clientY;
+    if (!this.isDown) return
+    const x = event.touches ? event.touches[0].clientX : event.clientX
+    const y = event.touches ? event.touches[0].clientY : event.clientY
 
-    this.x.end = x;
-    this.y.end = y;
-    this.x.duration = this.x.start - this.x.end;
-    this.y.duration = this.y.start - this.y.end;
+    this.x.end = x
+    this.y.end = y
+    this.x.duration = this.x.start - this.x.end
+    this.y.duration = this.y.start - this.y.end
 
     const values = {
       x: this.x,
       y: this.y,
-    };
+    }
 
     if (this.home) {
-      this.home.onTouchMove(values);
+      this.home.onTouchMove(values)
     }
     if (this.about) {
-      this.about.onTouchMove(values);
+      this.about.onTouchMove(values)
     }
     if (this.collections) {
-      this.collections.onTouchMove(values);
+      this.collections.onTouchMove(values)
     }
   }
 
   onTouchUp(event) {
-    this.isDown = false;
-    const x = event.changedTouches
-      ? event.changedTouches[0].clientX
-      : event.clientX;
-    const y = event.changedTouches
-      ? event.changedTouches[0].clientY
-      : event.clientY;
+    this.isDown = false
+    const x = event.changedTouches ? event.changedTouches[0].clientX : event.clientX
+    const y = event.changedTouches ? event.changedTouches[0].clientY : event.clientY
 
-    this.x.end = x;
-    this.y.end = y;
-    this.x.duration = this.x.start - this.x.end;
-    this.y.duration = this.y.start - this.y.end;
+    this.x.end = x
+    this.y.end = y
+    this.x.duration = this.x.start - this.x.end
+    this.y.duration = this.y.start - this.y.end
 
     const values = {
       x: this.x,
       y: this.y,
-    };
+    }
 
     if (this.home) {
-      this.home.onTouchUp(values);
+      this.home.onTouchUp(values)
     }
     if (this.about) {
-      this.about.onTouchUp(values);
+      this.about.onTouchUp(values)
     }
     if (this.collections) {
-      this.collections.onTouchUp(values);
+      this.collections.onTouchUp(values)
     }
   }
 
   onWheel(event) {
     if (this.home) {
-      this.home.onWheel(event);
+      this.home.onWheel(event)
     }
     if (this.collections) {
-      this.collections.onWheel(values);
+      this.collections.onWheel(values)
     }
   }
 
@@ -259,17 +258,17 @@ export default class Canvas {
 
   update(scroll) {
     if (this.home) {
-      this.home.update();
+      this.home.update()
     }
     if (this.about) {
-      this.about.update(scroll); // sync page vertical scroll
+      this.about.update(scroll) // sync page vertical scroll
     }
     if (this.collections) {
-      this.collections.update();
+      this.collections.update()
     }
     this.renderer.render({
       scene: this.scene,
       camera: this.camera,
-    });
+    })
   }
 }

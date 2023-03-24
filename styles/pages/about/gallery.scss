@@ -3,10 +3,10 @@
   height: 58.6rem;
   margin: 15rem 0;
   pointer-events: none;
-
+  visibility: hidden;
+  
   &:first-child {
     margin-top: 0;
-    visibility: hidden;
   }
 
   &:last-child {
