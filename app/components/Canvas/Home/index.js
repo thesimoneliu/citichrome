@@ -36,6 +36,13 @@ export default class Home {
       y: 0,
     }
 
+    // scrolling speed passed to the vertex shader
+    this.speed = {
+      current: 0,
+      target: 0,
+      ease: 0.1, // lerp
+    }
+
     // create WebGL elements
     this.createGeometry()
     this.createGallery()
@@ -97,6 +104,7 @@ export default class Home {
   }
 
   onTouchDown({ x, y }) {
+    this.speed.target = 1
     this.scrollCurrent.x = this.scroll.x
     this.scrollCurrent.y = this.scroll.y
   }
@@ -109,7 +117,9 @@ export default class Home {
     this.y.target = this.scrollCurrent.y - yDistance
   }
 
-  onTouchUp({ x, y }) {}
+  onTouchUp({ x, y }) {
+    this.speed.target = 0
+  }
 
   onWheel({ pixelX, pixelY }) {
     this.x.target += pixelX
@@ -122,10 +132,11 @@ export default class Home {
   update() {
     if (!this.galleryBounds) return
 
-    // vertex moving distance calculation
+    // calculate mouse movement distance and pass it to uspeed value in vertex shader
     const a = this.x.target - this.x.current
     const b = this.y.target - this.y.current
-    const speed = Math.sqrt(a * a + b * b) * 0.01
+    this.speed.target = Math.sqrt(a * a + b * b) * 0.01
+    this.speed.current = GSAP.utils.interpolate(this.speed.current, this.speed.target, this.speed.ease)
 
     // smooth effect
     this.x.current = GSAP.utils.interpolate(this.x.current, this.x.target, this.x.ease)
@@ -148,40 +159,41 @@ export default class Home {
 
     map(this.medias, (media, index) => {
       const scaleX = media.mesh.scale.x / 2
-      const scaleY = media.mesh.scale.y / 2
-
+      const offsetX = this.sizes.width * 0.6
       // horizontal scroll
       if (this.x.direction === 'left') {
         const x = media.mesh.position.x + scaleX //check the right edge of the image
-        if (x < -this.sizes.width / 2) {
+        if (x < -offsetX) {
           media.extra.x += this.gallerySizes.width // move to the right side
           media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.02, Math.PI * 0.02)
         }
       } else if (this.x.direction === 'right') {
         const x = media.mesh.position.x - scaleX //check the left edge of the image
-        if (x > this.sizes.width / 2) {
+        if (x > offsetX) {
           media.extra.x -= this.gallerySizes.width // move to the left side
           media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.02, Math.PI * 0.02)
         }
       }
 
+      const scaleY = media.mesh.scale.y / 2
+      const offsetY = this.sizes.height * 0.6
       // vertical scroll
       if (this.y.direction === 'up') {
         const y = media.mesh.position.y + scaleY / 2 //check the bottom edge of the image
-        if (y < -this.sizes.height / 2) {
+        if (y < -offsetY) {
           media.extra.y += this.gallerySizes.height
           media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.02, Math.PI * 0.02)
         }
       } else if (this.y.direction === 'down') {
         const y = media.mesh.position.y - scaleY / 2 //check the top edge of the image
-        if (y > this.sizes.height / 2) {
+        if (y > offsetY) {
           media.extra.y -= this.gallerySizes.height
           media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.02, Math.PI * 0.02)
         }
       }
 
       // update scroll position
-      media.update(this.scroll, speed)
+      media.update(this.scroll, this.speed.current)
     })
   }
 
