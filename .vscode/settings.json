@@ -1,5 +1,5 @@
 {
-    "cSpell.words": [
-        "gsap"
-    ]
+  "cSpell.words": ["gsap"],
+  "prettier.configPath": ".prettierrc",
+  "prettier.requireConfig": true
 }

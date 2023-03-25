@@ -140,7 +140,7 @@ export default class Collections {
     }
 
     map(this.medias, (media, index) => {
-      media.update(this.scroll.current)
+      media.update(this.scroll.current, this.index)
     })
 
     // calculate image's index

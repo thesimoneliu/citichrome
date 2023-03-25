@@ -32,6 +32,8 @@
     "ogl": "^0.0.103",
     "postcss-loader": "^7.0.2",
     "prefix": "^1.0.0",
+    "prettier-plugin-glsl": "^0.0.9",
+    "prettier-plugin-pug": "^1.0.0-alpha.8",
     "raw-loader": "^4.0.2",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.57.1",

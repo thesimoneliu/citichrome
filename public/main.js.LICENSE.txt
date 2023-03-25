@@ -18,6 +18,10 @@
  * @author: Jack Doyle, jack@greensock.com
 */
 
+/*! ../../../shaders/collections-fragment.glsl */
+
+/*! ../../../shaders/collections-vertex.glsl */
+
 /*! ../../../shaders/home-fragment.glsl */
 
 /*! ../../../shaders/home-vertex.glsl */
@@ -25,6 +29,10 @@
 /*! ../../../shaders/plane-fragment.glsl */
 
 /*! ../../../shaders/plane-vertex.glsl */
+
+/*! ../../shaders/plane-fragment.glsl */
+
+/*! ../../shaders/plane-vertex.glsl */
 
 /*! ../core/Geometry.js */
 
@@ -50,6 +58,8 @@
 
 /*! ./Collections/index */
 
+/*! ./Detail/index */
+
 /*! ./ExecutionEnvironment */
 
 /*! ./Gallery */
@@ -63,6 +73,8 @@
 /*! ./Media */
 
 /*! ./Transform.js */
+
+/*! ./Transition */
 
 /*! ./UserAgent_DEPRECATED */
 
@@ -925,6 +937,14 @@
   \*********************************************/
 
 /*!*********************************************!*\
+  !*** ./app/components/Canvas/Transition.js ***!
+  \*********************************************/
+
+/*!*********************************************!*\
+  !*** ./app/shaders/collections-vertex.glsl ***!
+  \*********************************************/
+
+/*!*********************************************!*\
   !*** ./node_modules/lodash/_arrayFilter.js ***!
   \*********************************************/
 
@@ -1059,6 +1079,14 @@
 /*!**********************************************!*\
   !*** ./node_modules/ogl/src/extras/Plane.js ***!
   \**********************************************/
+
+/*!***********************************************!*\
+  !*** ./app/components/Canvas/Detail/index.js ***!
+  \***********************************************/
+
+/*!***********************************************!*\
+  !*** ./app/shaders/collections-fragment.glsl ***!
+  \***********************************************/
 
 /*!***********************************************!*\
   !*** ./node_modules/lodash/_arrayLikeKeys.js ***!

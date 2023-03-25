@@ -1,0 +1,9 @@
+/*! ../../../shaders/plane-fragment.glsl */
+
+/*! ../../../shaders/plane-vertex.glsl */
+
+/*! ogl */
+
+/*!***********************************************!*\
+  !*** ./app/components/Canvas/Detail/index.js ***!
+  \***********************************************/
