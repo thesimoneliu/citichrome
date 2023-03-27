@@ -15,10 +15,6 @@ export default class Media {
     this.scene = scene
     this.sizes = sizes
 
-    this.createTexture()
-    this.createProgram()
-    this.createMesh()
-
     this.extra = {
       x: 0,
       y: 0,
@@ -30,6 +26,11 @@ export default class Media {
       ease: 0.1,
       multiplier: 0, // value for animation
     }
+
+    this.createTexture()
+    this.createProgram()
+    this.createMesh()
+    this.createBound({ sizes: this.sizes })
   }
 
   createTexture() {
@@ -133,7 +134,6 @@ export default class Media {
 
   update(scroll, index) {
     // position change based on scroll event
-    if (!this.bounds) return
     this.updateX(scroll)
     this.updateY(0)
 

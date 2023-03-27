@@ -46,6 +46,7 @@ export default class Home {
     // create WebGL elements
     this.createGeometry()
     this.createGallery()
+    this.onResize({ sizes: this.sizes })
     this.group.setParent(scene)
 
     this.show()
@@ -130,8 +131,6 @@ export default class Home {
    ------------ LOOPS & FRAMES
    -------------- */
   update() {
-    if (!this.galleryBounds) return
-
     // calculate mouse movement distance and pass it to uspeed value in vertex shader
     const a = this.x.target - this.x.current
     const b = this.y.target - this.y.current

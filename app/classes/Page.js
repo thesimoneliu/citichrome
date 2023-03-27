@@ -54,11 +54,7 @@ export default class Page {
     }
 
     each(this.selectorChildren, (entry, key) => {
-      if (
-        entry instanceof window.HTMLElement ||
-        entry instanceof window.NodeList ||
-        Array.isArray(entry)
-      ) {
+      if (entry instanceof window.HTMLElement || entry instanceof window.NodeList || Array.isArray(entry)) {
         this.elements[key] = entry // what's the key and entry here?
       } else {
         this.elements[key] = document.querySelectorAll(entry)
@@ -132,17 +128,21 @@ export default class Page {
       })
       //console.log(this.element);
 
-      this.animationIn = GSAP.timeline()
+      if (animation) {
+        this.animation = animation
+      } else {
+        this.animationIn = GSAP.timeline()
 
-      this.animationIn.fromTo(
-        this.element,
-        {
-          autoAlpha: 0,
-        },
-        {
-          autoAlpha: 1,
-        }
-      )
+        this.animationIn.fromTo(
+          this.element,
+          {
+            autoAlpha: 0,
+          },
+          {
+            autoAlpha: 1,
+          }
+        )
+      }
 
       this.animationIn.call((_) => {
         this.addEventListeners()
@@ -207,11 +207,7 @@ export default class Page {
     //console.log(this.scroll.target);
     this.scroll.target = GSAP.utils.clamp(0, this.scroll.limit, this.scroll.target)
 
-    this.scroll.current = GSAP.utils.interpolate(
-      this.scroll.current,
-      this.scroll.target,
-      this.scroll.ease
-    )
+    this.scroll.current = GSAP.utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.ease)
     this.scroll.current = Math.floor(this.scroll.current)
 
     if (this.scroll.current < 0.1) {

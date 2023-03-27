@@ -12,12 +12,15 @@ export default class Detail {
     this.sizes = sizes
     this.transition = transition
 
+    this.id = 'detail'
+
     this.geometry = new Plane(this.gl)
     this.element = document.querySelector('.detail__media__image')
 
     this.createTexture()
     this.createProgram()
     this.createMesh()
+    this.createBound({ sizes: this.sizes })
 
     this.show()
   }
@@ -63,8 +66,12 @@ export default class Detail {
 
   show() {
     if (this.transition) {
-      this.transition.animate((_) => {
+      this.transition.animate(this.mesh, (_) => {
         this.program.uniforms.uAlpha.value = 1
+      })
+    } else {
+      GSAP.to(this.program.uniforms.uAlpha, {
+        value: 1,
       })
     }
   }
@@ -110,8 +117,14 @@ export default class Detail {
   }
 
   update() {
-    if (!this.bounds) return
     this.updateX()
     this.updateY()
+  }
+
+  /* -------------
+   ------------ DESTROY
+   -------------- */
+  destroy() {
+    this.scene.removeChild(this.mesh)
   }
 }

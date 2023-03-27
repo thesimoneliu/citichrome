@@ -87,6 +87,7 @@ export default class Canvas {
       gl: this.gl,
       scene: this.scene,
       sizes: this.sizes,
+      transition: this.transition,
     })
     // console.log(this.collections);
   }
@@ -143,6 +144,8 @@ export default class Canvas {
         sizes: this.sizes,
         url,
       })
+
+      this.transition.setElement(this.collections || this.detail) // which way to animate
     }
   }
 
@@ -155,10 +158,6 @@ export default class Canvas {
 
     if (template === 'collections') {
       this.createCollections()
-      // page transition effect
-      if (this.transition) {
-        this.transition.animateCollections(this.collections)
-      }
     } else if (this.collections) {
       this.destroyCollections()
     }

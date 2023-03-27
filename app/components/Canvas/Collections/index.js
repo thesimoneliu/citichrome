@@ -7,10 +7,13 @@ import Prefix from 'prefix'
 import Media from './Media'
 
 export default class Collections {
-  constructor({ gl, scene, sizes }) {
+  constructor({ gl, scene, sizes, transition }) {
     this.gl = gl
     this.scene = scene
     this.sizes = sizes
+    this.transition = transition
+
+    this.id = 'collections'
 
     this.group = new Transform()
 
@@ -31,6 +34,9 @@ export default class Collections {
 
     this.createGeometry()
     this.createGallery()
+
+    this.onResize({ sizes: this.sizes })
+
     this.group.setParent(scene)
 
     this.show()
@@ -61,6 +67,10 @@ export default class Collections {
 
   // images fade in and out effect
   show() {
+    if (this.transition) {
+      this.transition.animate(this.medias[0].mesh, (_) => {})
+    }
+
     map(this.medias, (media) => media.show())
   }
 
@@ -123,7 +133,7 @@ export default class Collections {
    ------------ LOOPS & FRAMES
    -------------- */
   update() {
-    if (!this.bounds) return
+    // if (!this.bounds) return
 
     // console.log("update:", this.scroll);
     this.scroll.target = GSAP.utils.clamp(-this.scroll.limit, 0, this.scroll.target)
