@@ -4,7 +4,7 @@ block variables
   - var template = 'about'
 
 block content 
-  .about(data-background="#B2B8C3" data-color="#37384C")
+  .about(data-background="#DDD2AD" data-color="#37384C")
     .about__wrapper 
       section.about__gallery 
         .about__gallery__wrapper 
@@ -46,4 +46,17 @@ block content
                 figure.about__gallery__media   
                   img.about__gallery__image(alt=media.image.alt data-src=media.image.url)
       
+        if section.slice_type == "link_paragraphs"
+          section.about__links
+            .about__links__wrapper
+                p.about__links__title(data-animation="label")=section.primary.title
+                
+                .about__links__item__wrapper
+                  .about__links__description=section.primary.description
+                  //.about__links__description!=PrismicH.asHTML(section.primary.description).replace(/<p>/g, '<p data-animation="paragraph">')
 
+
+                  each item in section.items
+                    p.about__links__item
+                      //span.about__links__label=item.link_label
+                      a.about__links__link(href=item.link.url target="_blank")=item.link_label

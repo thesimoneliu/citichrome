@@ -1,74 +1,73 @@
 *,
 *:after,
 *:before {
-  box-sizing: border-box;
-  user-select: none;
+    box-sizing: border-box;
+    user-select: none;
 }
 
 html {
-  @extend %cover;
-  position: fixed;
-  overflow: hidden;
+    @extend %cover;
+    position: fixed;
+    overflow: hidden;
 
-  background-color: $color-contessa;
-  color: $color-quarter-spanish-white;
-  font-size: calc(100vw / 1920 * 10);
-  line-height: 1;
+    background-color: $color-contessa;
+    color: $color-quarter-spanish-white;
+    font-size: calc(100vw / 1920 * 10);
+    line-height: 1;
 
-  @include media('<phone'){
-    font-size: calc(100vw / 750 * 10);
-  }
-
+    @include media('<phone') {
+        font-size: calc(100vw / 750 * 10);
+    }
 }
 
 body {
-  @extend %cover;
-  @extend %description-18;
+    @extend %cover;
+    @extend %description-18;
 
-  font-family: $font-suisse-bp, Ubuntu;
-  position: fixed;
+    font-family: $font-suisse-bp, Ubuntu;
+    position: fixed;
 }
 
 a {
-  color: inherit;
-  outline: none;
-  text-decoration: none;
+    color: inherit;
+    outline: none;
+    text-decoration: none;
 }
 
 button {
-  background: none;
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  outline: none;
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
 }
 
 canvas {
-  pointer-events: none;
-  position: relative;
-  z-index: z('canvas');
+    pointer-events: none;
+    position: relative;
+    z-index: z('canvas');
 }
 
 img {
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  vertical-align: middle;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    vertical-align: middle;
 
-  &.loaded {
-    opacity: 1;
-  }
+    &.loaded {
+        opacity: 1;
+    }
 }
 
-.content{
-  @extend %cover;
+.content {
+    @extend %cover;
 }
 
-[data-animation="title"],
-[data-animation="paragraph"],
-[data-animation="label"]{
-  span{
-    display: inline-block;
-    overflow:hidden;
-    vertical-align: top;
-  }
+[data-animation='title'],
+[data-animation='paragraph'],
+[data-animation='label'] {
+    span {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: top;
+    }
 }

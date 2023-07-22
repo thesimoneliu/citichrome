@@ -1,0 +1,37 @@
+.about__links {
+    display: flex;
+    // flex-direction: column;
+    // justify-content: flex-start;
+    position: relative;
+    margin: 20rem auto 20rem 99.3rem;
+}
+
+.about__links__wrapper {
+    display: flex;
+}
+
+.about__links__title {
+    @extend %description-12;
+    width: 18rem;
+    text-transform: uppercase;
+}
+
+.about__links__description {
+    @extend %description-16;
+    width: 49.4rem;
+    margin-bottom: 2rem;
+}
+
+.about__links__item__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+}
+
+.about__links__item {
+    @extend %description-16;
+}
+
+.about__links_link {
+    color: red;
+}

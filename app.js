@@ -10,7 +10,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 
 const app = express()
-const port = process.env.PORT || 8001
+const port = process.env.PORT || 8003
 
 const Prismic = require('@prismicio/client')
 const PrismicH = require('@prismicio/helpers')
@@ -84,6 +84,8 @@ const handleRequest = async (api) => {
     }),
   ])
   // console.log(home.data.collection, Link(home.data.collection));
+
+  // console.log(about.data.body[7].items, about.data.body[7].primary)
 
   // collections.forEach((collection) => {
   //   console.log(collection);

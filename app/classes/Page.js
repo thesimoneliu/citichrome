@@ -10,10 +10,7 @@ import Paragraph from 'animations/Paragraph'
 import Label from 'animations/Label'
 import Highlight from 'animations/Highlight'
 
-// import classes
 import AsyncLoad from 'classes/AsyncLoad'
-
-// import components
 import { ColorManager } from 'classes/Colors'
 
 export default class Page {
@@ -128,21 +125,21 @@ export default class Page {
       })
       //console.log(this.element);
 
-      if (animation) {
-        this.animation = animation
-      } else {
-        this.animationIn = GSAP.timeline()
+      // if (animation) {
+      //   this.animation = animation
+      // } else {
+      this.animationIn = GSAP.timeline()
 
-        this.animationIn.fromTo(
-          this.element,
-          {
-            autoAlpha: 0,
-          },
-          {
-            autoAlpha: 1,
-          }
-        )
-      }
+      this.animationIn.fromTo(
+        this.element,
+        {
+          autoAlpha: 0,
+        },
+        {
+          autoAlpha: 1,
+        }
+      )
+      //}
 
       this.animationIn.call((_) => {
         this.addEventListeners()
